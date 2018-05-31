@@ -1,6 +1,6 @@
 <template>
   <svg :class="svgClass" aria-hidden="true">
-    <use :xlink:href="iconName"></use>
+    <use :xlink:href="iconName"/>
   </svg>
 </template>
 
@@ -13,6 +13,7 @@ export default class SvgIcon extends Vue {
     required: true
   })
   iconClass;
+
   @Prop({
     type: String
   })
@@ -21,6 +22,7 @@ export default class SvgIcon extends Vue {
   get iconName() {
     return `#icon-${this.iconClass}`;
   }
+
   get svgClass() {
     if (this.className) {
       return "svg-icon " + this.className;

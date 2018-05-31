@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar wrapClass="scrollbar-wrapper">
+  <el-scrollbar wrap-class="scrollbar-wrapper">
     <el-menu
       mode="vertical"
       :show-timeout="200"
@@ -8,7 +8,8 @@
       text-color="#bfcbd9"
       active-text-color="#409EFF"
     >
-      <sidebar-item :routes="routes"></sidebar-item>
+      <sidebar-item :routes="routes"/>
+      
     </el-menu>
   </el-scrollbar>
 </template>

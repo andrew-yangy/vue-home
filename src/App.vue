@@ -7,5 +7,7 @@ import { Vue } from "vue-property-decorator";
 export default class App extends Vue {}
 </script>
 
-<style>
+<style lang="scss">
+@import './styles/index.scss';
+
 </style>
