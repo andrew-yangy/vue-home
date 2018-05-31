@@ -4,7 +4,7 @@ const utils = require('./utils');
 const config = require('../config');
 const vueLoaderConfig = require('./vue-loader.conf');
 
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, '..', dir);
 }
 
@@ -22,7 +22,7 @@ module.exports = {
         : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.ts', '.vue', '.json'],
+    extensions: [ '.js', '.ts', '.vue', '.json' ],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': resolve('src')
@@ -31,6 +31,12 @@ module.exports = {
   module: {
     rules: [
       {
+        enforce: 'pre',
+        test: /\.vue$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader'
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
@@ -38,7 +44,7 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'ts-loader',
-        options: { appendTsSuffixTo: [/\.vue$/] },
+        options: { appendTsSuffixTo: [ /\.vue$/ ] },
         include: [
           resolve('src'),
           resolve('test'),
@@ -61,6 +67,12 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.css$/,
+        loaders: [
+          'postcss-loader',
+        ],
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
