@@ -9,21 +9,25 @@ Vue.use(Router);
 export const constRoutes = [
   {
     path: "/states",
+    name: "states",
     component: Layout,
     meta: { title: "States", icon: "television-guide", noCache: true }
   },
   {
     path: "/map",
+    name: "map",
     component: Layout,
     meta: { title: "Map", icon: "google-maps", noCache: true }
   },
   {
     path: "/logbook",
+    name: "logbook",
     component: Layout,
     meta: { title: "Logbook", icon: "calendar", noCache: true }
   },
   {
     path: "/history",
+    name: "history",
     component: Layout,
     meta: { title: "History", icon: "chart-line", noCache: true }
   }

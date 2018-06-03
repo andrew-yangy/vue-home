@@ -3,8 +3,8 @@
     <sidebar class="sidebar-container"/>
     <div class="main-container">
       <navbar/>
-      <!-- <tags-view/>
-      <app-main/> -->
+      <tags-view/>
+      <!-- <app-main/> -->
     </div>
   </div>
 </template>
@@ -13,11 +13,15 @@
 import { Vue, Component } from "vue-property-decorator";
 import Sidebar from "@/pages/layout/components/Sidebar/Sidebar.vue";
 import Navbar from "@/pages/layout/components/Navbar.vue";
+import TagsView from "@/pages/layout/components/TagsView.vue";
+import AppMain from "@/pages/layout/components/AppMain.vue";
 
 @Component({
   components: {
     Sidebar,
-    Navbar
+    Navbar,
+    TagsView,
+    AppMain
   }
 })
 export default class Layout extends Vue {}

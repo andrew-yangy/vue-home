@@ -1,7 +1,6 @@
 <template>
   <div class="menu-wrapper">
     <template v-for="(item,index) in routes">
-
       <router-link
         :key="index"
         :to="item.path">
