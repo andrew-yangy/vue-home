@@ -4,12 +4,12 @@
       mode="vertical"
       :show-timeout="200"
       :default-active="$route.path"
-      background-color="#304156"
-      text-color="#bfcbd9"
-      active-text-color="#409EFF"
+      class="el-menu-vertical-demo"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
     >
       <sidebar-item :routes="routes"/>
-      
     </el-menu>
   </el-scrollbar>
 </template>

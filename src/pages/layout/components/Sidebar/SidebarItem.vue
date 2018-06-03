@@ -6,7 +6,7 @@
         :key="index"
         :to="item.path">
         <el-menu-item :index="item.path">
-          <svg-icon v-if="item.meta&&item.meta.icon" :icon-class="item.meta.icon"/>
+          <svgicon v-if="item.meta&&item.meta.icon" :icon="item.meta.icon"/>
           <span v-if="item.meta&&item.meta.title" slot="title">{{ item.meta.title }}</span>
         </el-menu-item>
       </router-link>
@@ -17,9 +17,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 
-@Component({
-  components: {}
-})
+@Component
 export default class SidebarItem extends Vue {
   @Prop() routes;
 }

@@ -1,19 +1,21 @@
-import Vue from 'vue'
-import App from '@/App.vue'
-import router from '@/router'
-import store from '@/store'
-import Element from 'element-ui'
-import SvgIcon from '@/components/SvgIcon/index.vue'
-import 'element-ui/lib/theme-chalk/index.css';
+import Vue from "vue";
+import App from "@/App.vue";
+import router from "@/router";
+import store from "@/store";
+import Element from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+import "@/styles/index.scss";
+import * as svgicon from "vue-svgicon";
 
-Vue.config.productionTip = false
+Vue.use(svgicon);
+import "./assets/icons";
+Vue.config.productionTip = false;
 Vue.use(Element, {
-  size: 'medium', // set element-ui default size
-})
-Vue.component('svg-icon', SvgIcon)
+  size: "medium" // set element-ui default size
+});
 
 new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount("#app");

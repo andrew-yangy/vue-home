@@ -3,20 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build-config/webpack.dev.conf.js",
+    "dev":
+      "webpack-dev-server --inline --progress --config build-config/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "jest --updateSnapshot --config test/unit/jest.conf.js",
     "e2e": "node test/e2e/runner.js",
     "e2e:open": "node test/e2e/runner.js --command=open",
     "e2e:dev": "node test/e2e/runner.js --url=localhost:8080",
-    "e2e:dev:open": "node test/e2e/runner.js --command=open --url=localhost:8080",
+    "e2e:dev:open":
+      "node test/e2e/runner.js --command=open --url=localhost:8080",
     "test": "npm run unit",
     "build": "node build-config/build.js",
-    "svg": "vsvg -s ./static/svg -t ./src/assets/icons --ts",
+    "svg": "vsvg -s ./static/svg -t ./src/assets/icons --ext ts --es6",
     "zip": "build-config/zip.sh",
     "package": "npm i && npm run compile-domain && npm run build && npm run zip"
   },
   "dependencies": {
+    "@mdi/svg": "^2.4.85",
     "element-ui": "^2.3.9",
     "vue": "^2.5.13",
     "vue-class-component": "^6.2.0",
@@ -76,15 +79,12 @@
     "vue-jest": "^1.0.2",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^4.1.0",
+    "vue-svgicon": "^2.1.3",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-dev-server": "^2.11.2",
     "webpack-merge": "^4.1.2"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }
