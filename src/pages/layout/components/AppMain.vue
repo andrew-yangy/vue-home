@@ -8,16 +8,12 @@
   </section>
 </template>
 
-<script>
-export default {
-  name: "AppMain",
-  computed: {
-    cachedViews() {
-      return this.$store.state.tagsView.cachedViews;
-    }
-    // key() {
-    //   return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date()
-    // }
-  }
-};
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+import { TagsView } from "@/store/vuex-decorators";
+
+@Component
+export default class AppMain extends Vue {
+  @TagsView.State("cachedViews") cachedViews;
+}
 </script>

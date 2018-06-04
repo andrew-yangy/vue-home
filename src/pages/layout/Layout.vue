@@ -1,6 +1,9 @@
 <template>
-  <div class="app-wrapper">
-    <sidebar class="sidebar-container"/>
+  <div 
+    class="app-wrapper" 
+    :class="{hideSidebar: !sidebar.opened,
+             withoutAnimation: sidebar.withoutAnimation}">
+    <sidebar class="sidebar-container" :routes="routes" :sidebar="sidebar"/>
     <div class="main-container">
       <navbar/>
       <tags-view/>
@@ -15,6 +18,7 @@ import Sidebar from "@/pages/layout/components/Sidebar/Sidebar.vue";
 import Navbar from "@/pages/layout/components/Navbar.vue";
 import TagsView from "@/pages/layout/components/TagsView.vue";
 import AppMain from "@/pages/layout/components/AppMain.vue";
+import { Permission, Settings } from "@/store/vuex-decorators";
 
 @Component({
   components: {
@@ -24,7 +28,11 @@ import AppMain from "@/pages/layout/components/AppMain.vue";
     AppMain
   }
 })
-export default class Layout extends Vue {}
+export default class Layout extends Vue {
+  @Permission.State("routes") routes;
+
+  @Settings.State("sidebar") sidebar;
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
-    <hamburger class="hamburger-container" :toggle-click="toggleSideBar" />
+    <hamburger class="hamburger-container" :toggle-click="toggleSideBar" :is-active="sidebar.opened"/>
 
     <breadcrumb class="breadcrumb-container"/>
 
@@ -29,7 +29,7 @@
             </el-dropdown-item>
           </a>
           <el-dropdown-item divided>
-            <span @click="logout" style="display:block;">LogOut</span>
+            <span style="display:block;">LogOut</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -37,31 +37,23 @@
   </el-menu>
 </template>
 
-<script>
-import { mapGetters } from "vuex";
-import Breadcrumb from "@/components/Breadcrumb";
-import Hamburger from "@/components/Hamburger";
-// import ErrorLog from '@/components/ErrorLog'
-// import LangSelect from '@/components/LangSelect'
-// import ThemePicker from '@/components/ThemePicker'
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+import Breadcrumb from "@/components/Breadcrumb/index.vue";
+import Hamburger from "@/components/Hamburger/index.vue";
+import { Settings } from "@/store/vuex-decorators";
 
-export default {
+@Component({
   components: {
     Breadcrumb,
     Hamburger
-  },
-  computed: {},
-  methods: {
-    toggleSideBar() {
-      this.$store.dispatch("toggleSideBar");
-    },
-    logout() {
-      this.$store.dispatch("LogOut").then(() => {
-        location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
-      });
-    }
   }
-};
+})
+export default class Navbar extends Vue {
+  @Settings.State("sidebar") sidebar;
+
+  @Settings.Action toggleSideBar;
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
