@@ -6,7 +6,7 @@
     <sidebar class="sidebar-container" :routes="routes" :sidebar="sidebar"/>
     <div class="main-container">
       <navbar/>
-      <tags-view/>
+      <!-- <tabs/> -->
       <!-- <app-main/> -->
     </div>
   </div>
@@ -16,7 +16,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import Sidebar from "@/pages/layout/components/Sidebar/Sidebar.vue";
 import Navbar from "@/pages/layout/components/Navbar.vue";
-import TagsView from "@/pages/layout/components/TagsView.vue";
+import Tabs from "@/pages/layout/components/Tabs.vue";
 import AppMain from "@/pages/layout/components/AppMain.vue";
 import { Permission, Settings } from "@/store/vuex-decorators";
 
@@ -24,7 +24,7 @@ import { Permission, Settings } from "@/store/vuex-decorators";
   components: {
     Sidebar,
     Navbar,
-    TagsView,
+    Tabs,
     AppMain
   }
 })

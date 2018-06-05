@@ -10,10 +10,10 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { TagsView } from "@/store/vuex-decorators";
+import { Tabs } from "@/store/vuex-decorators";
 
 @Component
 export default class AppMain extends Vue {
-  @TagsView.State("cachedViews") cachedViews;
+  @Tabs.State("cachedViews") cachedViews;
 }
 </script>

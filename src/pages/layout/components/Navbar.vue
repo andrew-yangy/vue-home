@@ -2,7 +2,7 @@
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggle-click="toggleSideBar" :is-active="sidebar.opened"/>
 
-    <breadcrumb class="breadcrumb-container"/>
+    <tabs class="tabs"/>
 
     <div class="right-menu">
       <!-- <error-log class="errLog-container right-menu-item"/> -->
@@ -42,11 +42,12 @@ import { Vue, Component } from "vue-property-decorator";
 import Breadcrumb from "@/components/Breadcrumb/index.vue";
 import Hamburger from "@/components/Hamburger/index.vue";
 import { Settings } from "@/store/vuex-decorators";
-
+import Tabs from "@/pages/layout/components/Tabs.vue";
 @Component({
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    Tabs
   }
 })
 export default class Navbar extends Vue {
@@ -61,21 +62,20 @@ export default class Navbar extends Vue {
   height: 50px;
   line-height: 50px;
   border-radius: 0px !important;
+  display: flex;
   .hamburger-container {
     line-height: 58px;
     height: 50px;
-    float: left;
-    padding: 0 10px;
+    padding: 0 20px 0 10px;
   }
-  .breadcrumb-container {
-    float: left;
+  .tabs {
+    margin-right: auto;
   }
   .errLog-container {
     display: inline-block;
     vertical-align: top;
   }
   .right-menu {
-    float: right;
     height: 100%;
     &:focus {
       outline: none;

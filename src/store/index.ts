@@ -4,13 +4,13 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 import { permission } from "./modules/permission";
-import { tagsView } from "./modules/tagsView";
+import { tabs } from "./modules/tabs";
 import { settings } from "./modules/settings";
 
 export default new Vuex.Store({
   modules: {
     permission,
-    tagsView,
+    tabs,
     settings
   }
 });
