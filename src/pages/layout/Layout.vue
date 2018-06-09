@@ -3,11 +3,10 @@
     class="app-wrapper" 
     :class="{hideSidebar: !sidebar.opened,
              withoutAnimation: sidebar.withoutAnimation}">
+    <navbar class="navbar fixed"/>
     <sidebar class="sidebar-container" :routes="routes" :sidebar="sidebar"/>
     <div class="main-container">
-      <navbar/>
-      <!-- <tabs/> -->
-      <!-- <app-main/> -->
+      <app-main/>
     </div>
   </div>
 </template>
@@ -35,21 +34,3 @@ export default class Layout extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-@import "src/styles/mixin.scss";
-.app-wrapper {
-  @include clearfix;
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-.drawer-bg {
-  background: #000;
-  opacity: 0.3;
-  width: 100%;
-  top: 0;
-  height: 100%;
-  position: absolute;
-  z-index: 999;
-}
-</style>

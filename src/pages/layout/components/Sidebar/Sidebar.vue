@@ -4,11 +4,7 @@
       mode="vertical"
       :show-timeout="200"
       :default-active="$route.path"
-      :collapse="!sidebar.opened"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-    >
+      :collapse="!sidebar.opened">
       <sidebar-item :routes="routes"/>
     </el-menu>
   </el-scrollbar>
@@ -27,6 +23,3 @@ export default class Sidebar extends Vue {
   @Prop() sidebar;
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

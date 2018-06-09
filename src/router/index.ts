@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Layout from "@/pages/layout/Layout.vue";
+import States from "@/pages/states/States.vue";
 import store from "@/store";
 import { FETCH_ROUTES, ADD_TABS } from "@/store/event-types";
 
@@ -10,7 +11,7 @@ export const constRoutes = [
   {
     path: "/states",
     name: "states",
-    component: Layout,
+    component: States,
     meta: { title: "States", icon: "television-guide", noCache: true }
   },
   {

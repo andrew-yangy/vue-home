@@ -3,15 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev":
-      "webpack-dev-server --inline --progress --config build-config/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build-config/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "jest --updateSnapshot --config test/unit/jest.conf.js",
     "e2e": "node test/e2e/runner.js",
     "e2e:open": "node test/e2e/runner.js --command=open",
     "e2e:dev": "node test/e2e/runner.js --url=localhost:8080",
-    "e2e:dev:open":
-      "node test/e2e/runner.js --command=open --url=localhost:8080",
+    "e2e:dev:open": "node test/e2e/runner.js --command=open --url=localhost:8080",
     "test": "npm run unit",
     "build": "node build-config/build.js",
     "svg": "vsvg -s ./static/svg -t ./src/assets/icons --ext ts --es6",
@@ -49,6 +47,7 @@
     "css-loader": "^0.28.11",
     "cypress": "^1.4.2",
     "dotenv": "^5.0.1",
+    "element-theme-chalk": "^2.4.1",
     "eslint": "^4.19.1",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-vue": "^4.5.0",
@@ -86,5 +85,9 @@
     "webpack-dev-server": "^2.11.2",
     "webpack-merge": "^4.1.2"
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

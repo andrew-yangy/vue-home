@@ -1,15 +1,3 @@
-//覆盖一些element-ui样式
-.el-tabs--card > .el-tabs__header {
-  user-select: none;
-  border: none;
-}
-.el-tabs__item {
-  font-weight: inherit;
-}
-.el-tabs__item:focus.is-active.is-focus:not(:active) {
-  box-shadow: none;
-}
-
 .el-breadcrumb__inner,
 .el-breadcrumb__inner a {
   font-weight: 400 !important;

@@ -1,5 +1,5 @@
 <template>
-  <section class="app-main" style="min-height: 100%">
+  <section class="app-main">
     <transition name="fade" mode="out-in">
       <keep-alive :include="cachedViews">
         <router-view/>
@@ -17,3 +17,10 @@ export default class AppMain extends Vue {
   @Tabs.State("cachedViews") cachedViews;
 }
 </script>
+
+<style lang="scss" scoped>
+.app-main {
+  padding: 0 1.5rem 0.5rem;
+}
+</style>
+

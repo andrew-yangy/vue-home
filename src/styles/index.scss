@@ -2,6 +2,7 @@
 @import "./mixin.scss";
 @import "./transition.scss";
 @import "./element-ui.scss";
+@import "./navbar.scss";
 @import "./sidebar.scss";
 @import "./btn.scss";
 
@@ -10,10 +11,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
-    Microsoft YaHei, Arial, sans-serif;
+  font-family: $font-main;
+  margin: 0;
 }
-
+.app-wrapper {
+  @include clearfix;
+  background-color: $color-bg;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
 label {
   font-weight: 700;
 }
