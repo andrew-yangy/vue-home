@@ -32,7 +32,6 @@ const mutations = {
 const actions = {
   addTabs({ commit, state }, view) {
     if (!view.name || state.visitedTabs.some(v => v.path === view.path)) return;
-
     commit("ADD_TABS", view);
   },
   delTab({ commit, state }, path) {

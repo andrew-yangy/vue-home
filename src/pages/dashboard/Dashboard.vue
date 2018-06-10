@@ -32,23 +32,7 @@
         :sm="12" 
         v-for="(sw,index) in switches"
         :key="index">
-        <el-card :body-style="{ padding: '0' }" class="card">
-          <div class="card-content">
-            <div class="icon primary">
-              <svgicon 
-                class=""
-                icon="google-maps" 
-                width="50" 
-                height="50" 
-                color="#fff"
-                :fill="false"/>
-            </div>
-            <div class="details">
-              {{ sw.name }}
-              {{ sw.states }}
-            </div>
-          </div>
-        </el-card>
+        <device-switch :device="sw" />
       </el-col>
     </el-row>
   </div>
@@ -60,6 +44,7 @@ import Sidebar from "@/pages/layout/components/Sidebar/Sidebar.vue";
 import Navbar from "@/pages/layout/components/Navbar.vue";
 import Tabs from "@/pages/layout/components/Tabs.vue";
 import AppMain from "@/pages/layout/components/AppMain.vue";
+import DeviceSwitch from "@/components/DeviceSwitch/index.vue";
 import { Permission, Settings } from "@/store/vuex-decorators";
 import { Rooms } from "@/store/vuex-decorators";
 
@@ -68,7 +53,8 @@ import { Rooms } from "@/store/vuex-decorators";
     Sidebar,
     Navbar,
     Tabs,
-    AppMain
+    AppMain,
+    DeviceSwitch
   }
 })
 export default class Dashboard extends Vue {
@@ -78,24 +64,28 @@ export default class Dashboard extends Vue {
 
   switches = [
     {
-      name: "Light",
-      states: "ON",
+      name: "Bed lamp",
+      states: true,
+      icon: "device/lightbulb",
+      color: "warning"
+    },
+    {
+      name: "AC",
+      states: true,
+      icon: "device/air-conditioner",
+      color: "info"
+    },
+    {
+      name: "Audio",
+      states: true,
+      icon: "device/speaker",
       color: "primary"
     },
     {
-      name: "Light",
-      states: "ON",
-      color: "primary"
-    },
-    {
-      name: "Light",
-      states: "ON",
-      color: "primary"
-    },
-    {
-      name: "Light",
-      states: "ON",
-      color: "primary"
+      name: "Curtain",
+      states: true,
+      icon: "device/window",
+      color: "success"
     }
   ];
 
@@ -136,31 +126,6 @@ export default class Dashboard extends Vue {
 }
 .room-card:hover {
   box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.4);
-}
-.card {
-  margin-bottom: 20px;
-}
-.card-content {
-  display: flex;
-  .icon {
-    height: 100%;
-    margin: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 5.75rem;
-    height: 4.75rem;
-    font-size: 3.75rem;
-    border-radius: 0.375rem;
-    transition: width 0.4s ease;
-  }
-  .primary {
-    background-image: linear-gradient(to right, #b57fff, #8a7fff);
-    box-shadow: 0 0 0 0 #896ddb, 0 0 0 0 #9f7fff;
-  }
-  .details {
-    align-self: center;
-  }
 }
 </style>
 
