@@ -1,11 +1,34 @@
 <template>
   <div>
+    <el-row :gutter="20">
+      <el-col 
+        :md="8" 
+        :sm="24"
+        v-for="(room,index) in rooms" 
+        :key="index">
+        <el-card :body-style="{ padding: '0px' }" class="room-card">
+          <div class="image-container">
+            <img :src="room.img" class="room-image">
+          </div>
+          <div class="room-details">
+            <svgicon 
+              v-if="room.icon" 
+              :icon="room.icon" 
+              width="36" 
+              height="36" 
+              :original="true"/>
+            <div class="room-name">{{ room.name }}</div>
+            <div class="room-info">3 devices</div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
     <el-row :gutter="30">
       <el-col 
         :md="6" 
         :sm="12" 
-        v-for="sw in switches"
-        :key="sw.name">
+        v-for="(sw,index) in switches"
+        :key="index">
         <el-card :body-style="{ padding: '0' }" class="card">
           <div class="card-content">
             <div class="icon primary">
@@ -44,7 +67,27 @@ import { Permission, Settings } from "@/store/vuex-decorators";
     AppMain
   }
 })
-export default class States extends Vue {
+export default class Rooms extends Vue {
+  rooms = [
+    {
+      name: "Living Room",
+      img:
+        "https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg?auto=compress&cs=tinysrgb&h=350&w=600",
+      icon: "rooms/living-room"
+    },
+    {
+      name: "Bedroom",
+      img: "https://liyici.files.wordpress.com/2013/01/38.jpg",
+      icon: "rooms/bed"
+    },
+    {
+      name: "Kitchen",
+      img:
+        "https://st.hzcdn.com/simgs/f341a5730f77d17b_4-3935/modern-kitchen.jpg",
+      icon: "rooms/kitchen"
+    }
+  ];
+
   switches = [
     {
       name: "Light",
@@ -71,6 +114,37 @@ export default class States extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.room-card {
+  border-radius: 0.375rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  .image-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 50%;
+    .room-image {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+  }
+  .room-details {
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+    .room-name {
+      padding: 0 1.25rem;
+      font-size: 1.25rem;
+    }
+    .room-info {
+      margin-left: auto;
+      color: #82858a;
+    }
+  }
+}
+.room-card:hover {
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.4);
+}
 .card {
   margin-bottom: 20px;
 }

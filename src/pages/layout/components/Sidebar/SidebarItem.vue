@@ -9,8 +9,7 @@
             v-if="item.meta&&item.meta.icon" 
             :icon="item.meta.icon" 
             width="36" 
-            height="36" 
-            :fill="false"/>
+            height="36"/>
           <span v-if="item.meta&&item.meta.title" slot="title">{{ item.meta.title }}</span>
         </el-menu-item>
       </router-link>
