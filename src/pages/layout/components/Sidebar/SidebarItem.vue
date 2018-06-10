@@ -3,13 +3,14 @@
     <template v-for="(item,index) in routes">
       <router-link
         :key="index"
-        :to="item.path">
-        <el-menu-item :index="item.path">
+        :to="{name:item.name}">
+        <el-menu-item :index="item.name">
           <svgicon 
             v-if="item.meta&&item.meta.icon" 
             :icon="item.meta.icon" 
             width="36" 
-            height="36"/>
+            height="36" 
+            :fill="false"/>
           <span v-if="item.meta&&item.meta.title" slot="title">{{ item.meta.title }}</span>
         </el-menu-item>
       </router-link>

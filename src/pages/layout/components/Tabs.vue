@@ -1,15 +1,15 @@
 <template>
   <el-tabs 
-    :value="$route.name" 
+    :value="$route.path" 
     type="card"
     closable 
     @tab-click="clickTab"
     @tab-remove="removeTab">
     <el-tab-pane
       v-for="item in visitedTabs"
-      :key="item.name"
+      :key="item.path"
       :label="item.title"
-      :name="item.name"
+      :name="item.path"
     />
   </el-tabs>
 </template>
@@ -25,13 +25,13 @@ export default class Layout extends Vue {
   @Tabs.Action delTab;
 
   clickTab({ name }) {
-    this.$router.push({ name });
+    this.$router.push(name);
   }
 
   removeTab(tabName) {
-    const tabIndex = this.visitedTabs.findIndex(tab => tab.name === tabName);
+    const tabIndex = this.visitedTabs.findIndex(tab => tab.path === tabName);
     this.delTab(tabName);
-    if (tabName === this.$route.name) {
+    if (tabName === this.$route.path) {
       const length = this.visitedTabs.length;
       const nextIndex = tabIndex < length ? tabIndex : tabIndex - 1;
       const nextPath = this.visitedTabs[nextIndex]
@@ -42,6 +42,4 @@ export default class Layout extends Vue {
   }
 }
 </script>
-<style lang="scss">
-</style>
 

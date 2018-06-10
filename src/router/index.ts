@@ -1,18 +1,25 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Layout from "@/pages/layout/Layout.vue";
-import Rooms from "@/pages/rooms/Rooms.vue";
+import Dashboard from "@/pages/dashboard/Dashboard.vue";
+import Home from "@/pages/home/Home.vue";
 import store from "@/store";
 import { FETCH_ROUTES, ADD_TABS } from "@/store/event-types";
 
 Vue.use(Router);
 
-export const constRoutes = [
+export const menuRoutes = [
   {
-    path: "/rooms",
-    name: "rooms",
-    component: Rooms,
-    meta: { title: "Rooms", icon: "rooms/plans", noCache: true }
+    path: "/dashboard",
+    name: "dashboard",
+    component: Dashboard,
+    meta: { title: "Dashboard", icon: "dashboard", noCache: true }
+  },
+  {
+    path: "/home/:roomId?",
+    name: "home",
+    component: Home,
+    meta: { title: "My Home", icon: "home", noCache: true }
   },
   {
     path: "/map",
@@ -34,7 +41,8 @@ const mainRoutes = [
   {
     path: "",
     component: Layout,
-    children: constRoutes
+    redirect: "/dashboard",
+    children: menuRoutes
   }
 ];
 

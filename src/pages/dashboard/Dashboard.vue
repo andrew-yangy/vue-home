@@ -6,21 +6,24 @@
         :sm="24"
         v-for="(room,index) in rooms" 
         :key="index">
-        <el-card :body-style="{ padding: '0px' }" class="room-card">
-          <div class="image-container">
-            <img :src="room.img" class="room-image">
-          </div>
-          <div class="room-details">
-            <svgicon 
-              v-if="room.icon" 
-              :icon="room.icon" 
-              width="36" 
-              height="36" 
-              :original="true"/>
-            <div class="room-name">{{ room.name }}</div>
-            <div class="room-info">3 devices</div>
-          </div>
-        </el-card>
+        <router-link :to="{ name: 'home', params: { roomId: room.id }}">
+          <el-card :body-style="{ padding: '0px' }" class="room-card">
+            <div class="image-container">
+              <img :src="room.img" class="room-image">
+            </div>
+            <div class="room-details">
+              <svgicon 
+                v-if="room.icon" 
+                :icon="room.icon" 
+                width="36" 
+                height="36" 
+                :original="true"/>
+              <div class="room-name">{{ room.name }}</div>
+              <div class="room-info">3 devices</div>
+            </div>
+          </el-card>
+        </router-link>
+        
       </el-col>
     </el-row>
     <el-row :gutter="30">
@@ -58,6 +61,7 @@ import Navbar from "@/pages/layout/components/Navbar.vue";
 import Tabs from "@/pages/layout/components/Tabs.vue";
 import AppMain from "@/pages/layout/components/AppMain.vue";
 import { Permission, Settings } from "@/store/vuex-decorators";
+import { Rooms } from "@/store/vuex-decorators";
 
 @Component({
   components: {
@@ -67,26 +71,10 @@ import { Permission, Settings } from "@/store/vuex-decorators";
     AppMain
   }
 })
-export default class Rooms extends Vue {
-  rooms = [
-    {
-      name: "Living Room",
-      img:
-        "https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg?auto=compress&cs=tinysrgb&h=350&w=600",
-      icon: "rooms/living-room"
-    },
-    {
-      name: "Bedroom",
-      img: "https://liyici.files.wordpress.com/2013/01/38.jpg",
-      icon: "rooms/bed"
-    },
-    {
-      name: "Kitchen",
-      img:
-        "https://st.hzcdn.com/simgs/f341a5730f77d17b_4-3935/modern-kitchen.jpg",
-      icon: "rooms/kitchen"
-    }
-  ];
+export default class Dashboard extends Vue {
+  @Rooms.State("rooms") rooms;
+
+  @Rooms.Action fetchRooms;
 
   switches = [
     {
@@ -110,6 +98,10 @@ export default class Rooms extends Vue {
       color: "primary"
     }
   ];
+
+  created() {
+    this.fetchRooms();
+  }
 }
 </script>
 

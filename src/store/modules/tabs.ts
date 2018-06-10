@@ -5,29 +5,38 @@ const state = {
 const getters = {};
 const mutations = {
   ADD_TABS: (state, view) => {
-    if (!view.name || state.visitedTabs.some(v => v.path === view.path)) return;
-    state.visitedTabs.push({
-      name: view.name,
-      path: view.path,
-      title: view.meta.title || "no-name"
-    });
+    const tmp = [...state.visitedTabs];
+    const dupName = tmp.findIndex(v => v.name === view.name);
+    if (dupName > -1) {
+      tmp[dupName].path = view.path;
+    } else {
+      tmp.push({
+        name: view.name,
+        path: view.path,
+        params: view.params,
+        title: view.meta.title || "no-name"
+      });
+    }
+    state.visitedTabs = tmp;
     if (!view.meta.noCache) {
       state.cachedTabs.push(view.name);
     }
   },
-  DEL_TAB: (state, name) => {
+  DEL_TAB: (state, path) => {
     state.visitedTabs = state.visitedTabs.filter(
-      tab => tab && tab.name !== name
+      tab => tab && tab.path !== path
     );
-    state.cachedTabs = state.cachedTabs.filter(tab => tab && tab.name !== name);
+    state.cachedTabs = state.cachedTabs.filter(tab => tab && tab.path !== path);
   }
 };
 const actions = {
-  addTabs({ commit }, view) {
+  addTabs({ commit, state }, view) {
+    if (!view.name || state.visitedTabs.some(v => v.path === view.path)) return;
+
     commit("ADD_TABS", view);
   },
-  delTab({ commit, state }, name) {
-    commit("DEL_TAB", name);
+  delTab({ commit, state }, path) {
+    commit("DEL_TAB", path);
   }
 };
 

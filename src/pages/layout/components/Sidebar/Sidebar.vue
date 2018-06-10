@@ -3,7 +3,7 @@
     <el-menu
       mode="vertical"
       :show-timeout="200"
-      :default-active="$route.path"
+      :default-active="$route.name"
       :collapse="!sidebar.opened">
       <sidebar-item :routes="routes"/>
     </el-menu>
