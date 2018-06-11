@@ -30,9 +30,9 @@
       <el-col 
         :md="6" 
         :sm="12" 
-        v-for="(sw,index) in switches"
+        v-for="(device,index) in frequentDevices"
         :key="index">
-        <device-switch :device="sw" />
+        <device-switch :device="device" />
       </el-col>
     </el-row>
   </div>
@@ -46,8 +46,7 @@ import Tabs from "@/pages/layout/components/Tabs.vue";
 import AppMain from "@/pages/layout/components/AppMain.vue";
 import DeviceSwitch from "@/components/DeviceSwitch/index.vue";
 import { Permission, Settings } from "@/store/vuex-decorators";
-import { Rooms } from "@/store/vuex-decorators";
-
+import { Rooms, Devices } from "@/store/vuex-decorators";
 @Component({
   components: {
     Sidebar,
@@ -62,35 +61,15 @@ export default class Dashboard extends Vue {
 
   @Rooms.Action fetchRooms;
 
-  switches = [
-    {
-      name: "Bed lamp",
-      states: true,
-      icon: "device/lightbulb",
-      color: "warning"
-    },
-    {
-      name: "AC",
-      states: true,
-      icon: "device/air-conditioner",
-      color: "info"
-    },
-    {
-      name: "Audio",
-      states: true,
-      icon: "device/speaker",
-      color: "primary"
-    },
-    {
-      name: "Curtain",
-      states: true,
-      icon: "device/window",
-      color: "success"
-    }
-  ];
+  @Devices.Getter("getFrequentDevices") frequentDevices;
+
+  @Devices.Action fetchDevices;
 
   created() {
-    this.fetchRooms();
+    if (this.rooms.length === 0) this.fetchRooms();
+    if (this.frequentDevices && this.frequentDevices.length === 0) {
+      this.fetchDevices();
+    }
   }
 }
 </script>

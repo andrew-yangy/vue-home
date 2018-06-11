@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-menu :default-active="$route.params.roomId" :collapse="true" class="room-list">
+    <el-menu :default-active="selectedRoom" :collapse="true" class="room-list">
       <el-menu-item 
         class="room-item"
         v-for="(room,index) in rooms" 
@@ -16,6 +16,15 @@
         <div>{{ room.name }}</div>
       </el-menu-item>
     </el-menu>
+    <!-- <el-row :gutter="30">
+      <el-col 
+        :md="6" 
+        :sm="12" 
+        v-for="(device,index) in frequentDevices"
+        :key="index">
+        <device-switch :device="device" />
+      </el-col>
+    </el-row> -->
   </div>
 </template>
 
@@ -31,23 +40,14 @@ export default class Home extends Vue {
 
   @Rooms.Action fetchRooms;
 
-  @Watch("$route.params")
-  onRouteChange(val) {
-    if (!val.roomId) {
-      this.updateParams();
-    }
-  }
-
   created() {
-    this.fetchRooms();
-    if (!this.$route.params.roomId) {
-      this.updateParams();
-    }
+    if (this.rooms.length === 0) this.fetchRooms();
   }
 
-  updateParams() {
-    const defalutID = this.rooms[0].id;
-    this.$router.push({ params: { roomId: defalutID } });
+  get selectedRoom() {
+    return typeof this.$route.params.roomId === "undefined"
+      ? this.rooms[0].id
+      : this.$route.params.roomId;
   }
 
   clickRoom({ index }) {

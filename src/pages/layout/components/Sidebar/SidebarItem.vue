@@ -3,7 +3,7 @@
     <template v-for="(item,index) in routes">
       <router-link
         :key="index"
-        :to="{name:item.name}">
+        :to="path(item)">
         <el-menu-item :index="item.name">
           <svgicon 
             v-if="item.meta&&item.meta.icon" 
@@ -20,10 +20,20 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
+import { Tabs } from "@/store/vuex-decorators";
 
 @Component
 export default class SidebarItem extends Vue {
   @Prop() routes;
+
+  @Tabs.State("visitedTabs") visitedTabs;
+
+  get path() {
+    return item => {
+      const visited = this.visitedTabs.find(v => v.name === item.name);
+      return visited ? visited.path : { name: item.name };
+    };
+  }
 }
 </script>
 

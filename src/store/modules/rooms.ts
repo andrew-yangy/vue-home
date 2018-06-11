@@ -9,27 +9,81 @@ const mutations = {
   }
 };
 const actions = {
-  fetchRooms: async ({ dispatch, commit }) => {
+  fetchRooms: async ({ state, commit }) => {
     const rooms = [
       {
         id: "1",
         name: "Living Room",
         img:
           "https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg?auto=compress&cs=tinysrgb&h=350&w=600",
-        icon: "rooms/living-room"
+        icon: "rooms/living-room",
+        devices: [
+          {
+            name: "Bed lamp",
+            states: true,
+            icon: "device/lightbulb",
+            color: "warning"
+          },
+          {
+            name: "AC",
+            states: true,
+            icon: "device/air-conditioner",
+            color: "info"
+          },
+          {
+            name: "Audio",
+            states: true,
+            icon: "device/speaker",
+            color: "primary"
+          },
+          {
+            name: "Curtain",
+            states: true,
+            icon: "device/window",
+            color: "success"
+          }
+        ]
       },
       {
         id: "2",
         name: "Bedroom",
         img: "https://liyici.files.wordpress.com/2013/01/38.jpg",
-        icon: "rooms/bed"
+        icon: "rooms/bed",
+        devices: [
+          {
+            name: "Lights",
+            states: true,
+            icon: "device/lightbulb",
+            color: "warning"
+          },
+          {
+            name: "TV",
+            states: true,
+            icon: "device/television",
+            color: "primary"
+          },
+          {
+            name: "Curtain",
+            states: true,
+            icon: "device/window",
+            color: "success"
+          }
+        ]
       },
       {
         id: "3",
         name: "Kitchen",
         img:
           "https://st.hzcdn.com/simgs/f341a5730f77d17b_4-3935/modern-kitchen.jpg",
-        icon: "rooms/kitchen"
+        icon: "rooms/kitchen",
+        devices: [
+          {
+            name: "Lights",
+            states: true,
+            icon: "device/lightbulb",
+            color: "warning"
+          }
+        ]
       }
     ];
     commit(SET_ROOMS, rooms);
