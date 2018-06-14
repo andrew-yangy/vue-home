@@ -18,7 +18,12 @@
   },
   "dependencies": {
     "@mdi/svg": "^2.4.85",
+    "aws-iot-device-sdk": "^2.2.1",
+    "aws-sdk": "^2.255.1",
+    "axios": "^0.18.0",
     "element-ui": "^2.3.9",
+    "roboto-fontface": "^0.9.0",
+    "typeface-exo": "0.0.54",
     "vue": "^2.5.13",
     "vue-class-component": "^6.2.0",
     "vue-property-decorator": "^6.0.0",

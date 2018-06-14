@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-menu :default-active="selectedRoom" :collapse="true" class="room-list">
+  <div class="home-layout">
+    <el-menu :default-active="selectedRoomId" class="room-list">
       <el-menu-item 
         class="room-item"
         v-for="(room,index) in rooms" 
@@ -16,24 +16,26 @@
         <div>{{ room.name }}</div>
       </el-menu-item>
     </el-menu>
-    <!-- <el-row :gutter="30">
+    <el-row :gutter="30" class="device-list">
       <el-col 
         :md="6" 
         :sm="12" 
-        v-for="(device,index) in frequentDevices"
+        v-for="(device,index) in roomDevices"
         :key="index">
         <device-switch :device="device" />
       </el-col>
-    </el-row> -->
+    </el-row>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { Rooms } from "@/store/vuex-decorators";
-
+import DeviceSwitch from "@/components/DeviceSwitch/index.vue";
 @Component({
-  components: {}
+  components: {
+    DeviceSwitch
+  }
 })
 export default class Home extends Vue {
   @Rooms.State("rooms") rooms;
@@ -44,10 +46,18 @@ export default class Home extends Vue {
     if (this.rooms.length === 0) this.fetchRooms();
   }
 
-  get selectedRoom() {
+  get selectedRoomId() {
     return typeof this.$route.params.roomId === "undefined"
       ? this.rooms[0].id
       : this.$route.params.roomId;
+  }
+
+  get roomDevices() {
+    const selectedRoom = this.rooms.find(
+      room => room.id === this.selectedRoomId
+    );
+    const devices = selectedRoom ? selectedRoom.devices : [];
+    return devices;
   }
 
   clickRoom({ index }) {
@@ -57,16 +67,23 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.el-menu--collapse {
-  width: 100px;
+.home-layout {
+  display: flex;
 }
 .room-list {
+  width: 100px;
   text-align: center;
+  position: fixed;
+  z-index: 10;
   .room-item {
     height: auto;
     line-height: inherit;
     padding: 1rem 0 !important;
   }
+}
+.device-list {
+  padding-left: 7.5rem;
+  width: 100%;
 }
 </style>
 

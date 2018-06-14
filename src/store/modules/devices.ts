@@ -17,25 +17,25 @@ const actions = {
     const devices = [
       {
         name: "Bed lamp",
-        states: true,
+        status: true,
         icon: "device/lightbulb",
         color: "warning"
       },
       {
         name: "AC",
-        states: true,
+        status: true,
         icon: "device/air-conditioner",
         color: "info"
       },
       {
         name: "Audio",
-        states: true,
+        status: true,
         icon: "device/speaker",
         color: "primary"
       },
       {
         name: "Curtain",
-        states: true,
+        status: true,
         icon: "device/window",
         color: "success"
       }

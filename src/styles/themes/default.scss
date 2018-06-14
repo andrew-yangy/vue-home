@@ -1,5 +1,5 @@
-$font-main: unquote('"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif');
-$font-secondary: $font-main;
+$font-main: Roboto;
+$font-secondary: Exo;
 $font-weight-thin: 200;
 $font-weight-light: 300;
 $font-weight-normal: 400;
@@ -50,3 +50,5 @@ $btn-hero-glow-size: 0 0 0 0;
 //card
 $card-fg: $color-fg;
 $card-bg: $color-bg;
+$card-fg-text: $color-fg-text;
+$card-fg-heading: $color-fg-heading;

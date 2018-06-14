@@ -1,3 +1,4 @@
+import axios from "axios";
 const SET_ROOMS = "setRooms";
 const state = {
   rooms: []
@@ -10,6 +11,16 @@ const mutations = {
 };
 const actions = {
   fetchRooms: async ({ state, commit }) => {
+    // axios
+    //   .get(
+    //     "https://a3pxmwbmnvjupn.iot.ap-southeast-2.amazonaws.com/things/MyMac/shadow"
+    //   )
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
     const rooms = [
       {
         id: "1",
@@ -20,25 +31,25 @@ const actions = {
         devices: [
           {
             name: "Bed lamp",
-            states: true,
+            status: false,
             icon: "device/lightbulb",
             color: "warning"
           },
           {
             name: "AC",
-            states: true,
+            status: true,
             icon: "device/air-conditioner",
             color: "info"
           },
           {
             name: "Audio",
-            states: true,
+            status: true,
             icon: "device/speaker",
             color: "primary"
           },
           {
             name: "Curtain",
-            states: true,
+            status: true,
             icon: "device/window",
             color: "success"
           }
@@ -52,19 +63,19 @@ const actions = {
         devices: [
           {
             name: "Lights",
-            states: true,
+            status: true,
             icon: "device/lightbulb",
             color: "warning"
           },
           {
             name: "TV",
-            states: true,
+            status: true,
             icon: "device/television",
             color: "primary"
           },
           {
             name: "Curtain",
-            states: true,
+            status: true,
             icon: "device/window",
             color: "success"
           }
@@ -79,7 +90,7 @@ const actions = {
         devices: [
           {
             name: "Lights",
-            states: true,
+            status: true,
             icon: "device/lightbulb",
             color: "warning"
           }
