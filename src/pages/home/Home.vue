@@ -1,11 +1,11 @@
 <template>
   <div class="home-layout">
-    <el-menu :default-active="selectedRoomId" class="room-list">
+    <el-menu :default-active="selectedRoomName" class="room-list">
       <el-menu-item 
         class="room-item"
         v-for="(room,index) in rooms" 
         :key="index"
-        :index="room.id"
+        :index="room.name"
         @click="clickRoom">
         <svgicon 
           v-if="room.icon" 
@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 import { Rooms } from "@/store/vuex-decorators";
 import DeviceSwitch from "@/components/DeviceSwitch/index.vue";
 @Component({
@@ -46,22 +46,23 @@ export default class Home extends Vue {
     if (this.rooms.length === 0) this.fetchRooms();
   }
 
-  get selectedRoomId() {
-    return typeof this.$route.params.roomId === "undefined"
-      ? this.rooms[0].id
-      : this.$route.params.roomId;
+  get selectedRoomName() {
+    return typeof this.$route.params.roomName === "undefined"
+      ? this.rooms[0] && this.rooms[0].name
+      : this.$route.params.roomName;
   }
 
   get roomDevices() {
     const selectedRoom = this.rooms.find(
-      room => room.id === this.selectedRoomId
+      room => room.name === this.selectedRoomName
     );
-    const devices = selectedRoom ? selectedRoom.devices : [];
+    const devices = selectedRoom ? selectedRoom.things : [];
+    console.log(selectedRoom, devices);
     return devices;
   }
 
   clickRoom({ index }) {
-    this.$router.push({ params: { roomId: index } });
+    this.$router.push({ params: { roomName: index } });
   }
 }
 </script>

@@ -1,5 +1,7 @@
 import AWS from "aws-sdk";
 import AwsIot from "aws-iot-device-sdk";
+import Amplify, { API, Auth } from "aws-amplify";
+import { AWSIoTProvider } from "aws-amplify/lib/PubSub";
 
 let instance = null;
 export default class IotClient {
@@ -16,23 +18,6 @@ export default class IotClient {
     instance = this;
     this.initClient(options);
     this.attachDebugHandlers();
-    // const cognitoIdentity = new AWS.CognitoIdentity();
-    // AWS.config.region = "ap-southeast-2";
-    // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    //   IdentityPoolId: "ap-southeast-2:4ef023b0-e8f0-4eda-baa1-a50f0f42bc42"
-    // });
-    // AWS.config.credentials["get"](error => {
-    //   if (error) {
-    //   }
-    //   const {
-    //     accessKeyId,
-    //     secretAccessKey,
-    //     sessionToken
-    //   } = AWS.config.credentials;
-    //   const credentialSubset = { accessKeyId, secretAccessKey, sessionToken };
-    //   console.log(credentialSubset);
-    //   this.updateWebSocketCredentials(credentialSubset);
-    // });
   }
   initClient(options) {
     const clientId = `iot-${Math.floor(Math.random() * 1000000 + 1)}`;
@@ -68,7 +53,6 @@ export default class IotClient {
     });
   }
   updateWebSocketCredentials() {
-    const cognitoIdentity = new AWS.CognitoIdentity();
     AWS.config.region = "ap-southeast-2";
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
       IdentityPoolId: "ap-southeast-2:4ef023b0-e8f0-4eda-baa1-a50f0f42bc42"

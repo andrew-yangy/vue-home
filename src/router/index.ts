@@ -16,7 +16,7 @@ export const menuRoutes = [
     meta: { title: "Dashboard", icon: "dashboard", noCache: true }
   },
   {
-    path: "/home/:roomId?",
+    path: "/home/:roomName?",
     name: "home",
     component: Home,
     meta: { title: "My Home", icon: "home", noCache: true }
