@@ -1,7 +1,8 @@
 import { iot } from "@/main";
 
 const SET_ROOMS = "setRooms";
-const SET_DEVICES = "setDevices";
+const SET_DEVICE_NAME = "setDeviceName";
+
 const state = {
   rooms: []
 };
@@ -10,7 +11,7 @@ const mutations = {
   [SET_ROOMS]: (state, rooms) => {
     state.rooms = rooms;
   },
-  [SET_DEVICES]: (state, devices) => {
+  [SET_DEVICE_NAME]: (state, devices) => {
     state.rooms.forEach((room, index) => {
       room.things = devices[index].things;
     });
@@ -37,7 +38,7 @@ const actions = {
         iot.listThingsInThingGroup({ thingGroupName: group.name }).promise()
       )
     );
-    commit(SET_DEVICES, roomWithDevices);
+    commit(SET_DEVICE_NAME, roomWithDevices);
     // const rooms = [
     //   {
     //     id: "1",
@@ -114,6 +115,9 @@ const actions = {
     //     ]
     //   }
     // ];
+  },
+  fetchDevice: async ({ state, commit }, thingName) => {
+    const thing = await iot.describeThing({ thingName }).promise();
   }
 };
 

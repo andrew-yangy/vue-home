@@ -9,7 +9,7 @@
           height="50"/>
       </div>
       <div class="details">
-        <div class="title">{{ device.name }}</div>
+        <div class="title">{{ device.thingName }}</div>
         <div class="status">{{ device.status ? 'on': 'off' }}</div>
       </div>
     </div>
@@ -18,10 +18,15 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
+import { Rooms } from "@/store/vuex-decorators";
 
 @Component
 export default class DeviceSwitch extends Vue {
   @Prop() device;
+
+  created() {
+    console.log(this.device);
+  }
 
   switchDevice(device) {
     device.status = !device.status;

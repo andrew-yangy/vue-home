@@ -20,9 +20,9 @@
       <el-col 
         :md="6" 
         :sm="12" 
-        v-for="(device,index) in roomDevices"
+        v-for="(thingName,index) in roomDevices"
         :key="index">
-        <device-switch :device="device" />
+        <device-switch :device="deviceInfo(thingName)" />
       </el-col>
     </el-row>
   </div>
@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { Rooms } from "@/store/vuex-decorators";
+import { Rooms, Devices } from "@/store/vuex-decorators";
 import DeviceSwitch from "@/components/DeviceSwitch/index.vue";
 @Component({
   components: {
@@ -42,8 +42,13 @@ export default class Home extends Vue {
 
   @Rooms.Action fetchRooms;
 
+  @Devices.State("devices") devices;
+
+  @Devices.Action fetchDevices;
+
   created() {
     if (this.rooms.length === 0) this.fetchRooms();
+    this.fetchDevices();
   }
 
   get selectedRoomName() {
@@ -57,8 +62,13 @@ export default class Home extends Vue {
       room => room.name === this.selectedRoomName
     );
     const devices = selectedRoom ? selectedRoom.things : [];
-    console.log(selectedRoom, devices);
     return devices;
+  }
+
+  get deviceInfo() {
+    return name => {
+      return this.devices.find(device => device.thingName === name);
+    };
   }
 
   clickRoom({ index }) {
