@@ -14,12 +14,6 @@ Vue.use(Element, {
   size: "medium" // set element-ui default size
 });
 
-import IotClient from "./services/iot-client";
-import AWS from "aws-sdk";
-const client = new IotClient();
-client.updateWebSocketCredentials();
-export const iot = new AWS.Iot();
-
 new Vue({
   router,
   store,

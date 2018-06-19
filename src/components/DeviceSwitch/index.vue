@@ -1,6 +1,6 @@
 <template>
   <el-card :body-style="{ padding: '0' }" class="card">
-    <div class="device-content" :class="{'off': !device.status}">
+    <div v-if="device.registered" class="device-content" :class="{'off': !device.status}">
       <div class="icon" :class="device.color" @click="switchDevice(device)">
         <svgicon 
           class=""
@@ -18,18 +18,16 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { Rooms } from "@/store/vuex-decorators";
+import { Devices } from "@/store/vuex-decorators";
 
 @Component
 export default class DeviceSwitch extends Vue {
   @Prop() device;
 
-  created() {
-    console.log(this.device);
-  }
+  @Devices.Action toggleDevice;
 
   switchDevice(device) {
-    device.status = !device.status;
+    this.toggleDevice({ name: device.thingName, status: !device.status });
   }
 }
 </script>

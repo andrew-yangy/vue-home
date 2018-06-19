@@ -1,4 +1,4 @@
-import { iot } from "@/main";
+import { iot } from "@/services/aws-iot";
 
 const SET_ROOMS = "setRooms";
 const SET_DEVICE_NAME = "setDeviceName";
