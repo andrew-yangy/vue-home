@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { Rooms, Devices } from "@/store/vuex-decorators";
 import DeviceSwitch from "@/components/DeviceSwitch/index.vue";
 @Component({
@@ -46,9 +46,14 @@ export default class Home extends Vue {
 
   @Devices.Action fetchDevices;
 
+  @Watch("$route.params")
+  onRoomChange() {
+    this.fetchDevices(this.selectedRoomName);
+  }
+
   created() {
     if (this.rooms.length === 0) this.fetchRooms();
-    this.fetchDevices();
+    this.fetchDevices(this.selectedRoomName);
   }
 
   get selectedRoomName() {

@@ -8,7 +8,7 @@ import store from "@/store";
 
 shadows.client.on("status", (name, statusType, clientToken, stateObject) => {
   console.log(name, statusType, clientToken, stateObject);
-  if (stateObject.state.reported) {
+  if (stateObject.state && stateObject.state.reported) {
     statusHandler(name, stateObject.state.reported.status);
   }
 });
@@ -25,8 +25,20 @@ shadows.client.on("message", function(topic, payload) {
 });
 shadows.client.on("foreignStateChange", (name, statusType, stateObject) => {
   console.log(name, statusType, stateObject);
-  statusHandler(name, stateObject.state.reported.status);
+  stateObject.state && statusHandler(name, stateObject.state.reported.status);
 });
 function statusHandler(name, status) {
   store.commit("devices/setStatus", { name, status }, { root: true });
 }
+// iot.updateIndexingConfiguration(
+//   {
+//     thingIndexingConfiguration: {
+//       thingIndexingMode: "REGISTRY_AND_SHADOW"
+//     }
+//   },
+//   function(err, data) {
+//     if (err) console.log(err, err.stack);
+//     // an error occurred
+//     else console.log(data); // successful response
+//   }
+// );

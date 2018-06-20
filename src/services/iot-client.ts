@@ -2,7 +2,7 @@ import AWS from "aws-sdk";
 import AwsIot from "aws-iot-device-sdk";
 import Amplify, { API, Auth } from "aws-amplify";
 import { AWSIoTProvider } from "aws-amplify/lib/PubSub";
-
+import { config } from "@/aws-exports";
 let instance = null;
 export default class IotClient {
   client: any;
@@ -22,8 +22,8 @@ export default class IotClient {
   initClient(options) {
     const clientId = `iot-${Math.floor(Math.random() * 1000000 + 1)}`;
     this.client = AwsIot.thingShadow({
-      region: "ap-southeast-2",
-      host: "a3pxmwbmnvjupn.iot.ap-southeast-2.amazonaws.com",
+      region: config.region,
+      host: config.host,
       clientId,
       protocol: "wss",
       maximumReconnectTimeMs: 20000,
@@ -53,9 +53,9 @@ export default class IotClient {
     });
   }
   updateWebSocketCredentials() {
-    AWS.config.region = "ap-southeast-2";
+    AWS.config.region = config.region;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: "ap-southeast-2:4ef023b0-e8f0-4eda-baa1-a50f0f42bc42"
+      IdentityPoolId: config.IdentityPoolId
     });
     AWS.config.credentials["get"](error => {
       if (error) {

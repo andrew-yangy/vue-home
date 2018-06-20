@@ -23,31 +23,25 @@ const mutations = {
   }
 };
 const actions = {
-  fetchDevices: async ({ state, commit }) => {
-    const { things } = await iot.listThings({}).promise();
-    const devices = things.map(thing => ({
-      thingName: thing.thingName,
-      status: true,
-      registered: false,
-      ...thing.attributes
-    }));
-    commit(SET_DEVICES, devices);
-    devices.forEach(device => {
-      if (!device.registered) {
-        shadows.client.register(device.thingName, () => {
-          shadows.client.get(device.thingName);
-          // const test = {
-          //   state: {
-          //     reported: {
-          //       status: false
-          //     }
-          //   }
-          // };
-          // shadows.client.update(device.thingName, test);
-        });
-      }
-      device.registered = true;
+  fetchDevices: async ({ state, commit }, queryString: string) => {
+    const { things } = await iot.searchIndex({ queryString }).promise();
+    const getStatus = shadow => {
+      const reported = JSON.parse(shadow).reported;
+      return reported ? reported.status : false;
+    };
+    const devices = things.map(thing => {
+      shadows.client.register(thing.thingName);
+      return {
+        thingGroupNames: thing.thingGroupNames,
+        thingName: thing.thingName,
+        thingId: thing.thingId,
+        thingTypeName: thing.thingTypeName,
+        status: getStatus(thing.shadow),
+        ...thing.attributes
+      };
     });
+
+    commit(SET_DEVICES, devices);
   },
   toggleDevice: ({ state, commit }, { name, status }) => {
     const stateObject = {
