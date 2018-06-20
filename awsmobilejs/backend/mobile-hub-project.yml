@@ -1,0 +1,48 @@
+--- !com.amazonaws.mobilehub.v0.Project 
+features:
+  cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
+    components:
+      sampleCloudApi: !com.amazonaws.mobilehub.v0.API 
+        attributes:
+          name: sampleCloudApi
+          requires-signin: false
+          sdk-generation-stage-name: Development
+        paths:
+          /items: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/sampleLambda-20180616191752.zip
+            description: 'Handler for calls to resource path : /items/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: 5nU9U+ZbUXlyyOxbz6FGvShxs5arNzI7ME7C5qNsIpU=
+            memorySize: '128'
+            modified: '2018-06-16T09:04:08.599+0000'
+            name: sampleLambda
+            runtime: nodejs6.10
+            timeout: '3'
+            version: nU8rQqg9GD1PgnrI_o6MRWADty_ur197
+          '/items/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/sampleLambda-20180616191752.zip
+            description: 'Handler for calls to resource path : /items/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: 5nU9U+ZbUXlyyOxbz6FGvShxs5arNzI7ME7C5qNsIpU=
+            memorySize: '128'
+            modified: '2018-06-16T09:04:08.599+0000'
+            name: sampleLambda
+            runtime: nodejs6.10
+            timeout: '3'
+            version: 6WPfcY8TY4mjtSkKtGWv8csLZKwRJ.Z4
+  content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
+    attributes:
+      enabled: true
+      visibility: public-global
+    components:
+      release: !com.amazonaws.mobilehub.v0.Bucket {}
+  mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint 
+    components:
+      analytics: !com.amazonaws.mobilehub.v0.PinpointAnalytics {}
+  sign-in: !com.amazonaws.mobilehub.v0.SignIn {}
+name: vue-home
+region: ap-southeast-2

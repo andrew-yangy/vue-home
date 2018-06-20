@@ -1,3 +1,5 @@
+import { iot, shadows } from "@/services/aws-iot";
+
 const SET_DEVICES = "setDevices";
 const state = {
   devices: []
@@ -8,39 +10,48 @@ const getters = {
   }
 };
 const mutations = {
-  [SET_DEVICES]: (state, payload) => {
-    state.devices = payload;
+  setDevices: (state, devices) => {
+    state.devices = devices;
+  },
+  setStatus: (state, { name, status }) => {
+    console.log(name, status);
+    state.devices.forEach(device => {
+      if (device.thingName === name) {
+        device.status = status;
+      }
+    });
   }
 };
 const actions = {
-  fetchDevices({ commit, state }) {
-    const devices = [
-      {
-        name: "Bed lamp",
-        states: true,
-        icon: "device/lightbulb",
-        color: "warning"
-      },
-      {
-        name: "AC",
-        states: true,
-        icon: "device/air-conditioner",
-        color: "info"
-      },
-      {
-        name: "Audio",
-        states: true,
-        icon: "device/speaker",
-        color: "primary"
-      },
-      {
-        name: "Curtain",
-        states: true,
-        icon: "device/window",
-        color: "success"
-      }
-    ];
+  fetchDevices: async ({ state, commit }, queryString: string) => {
+    const { things } = await iot.searchIndex({ queryString }).promise();
+    const getStatus = shadow => {
+      const reported = JSON.parse(shadow).reported;
+      return reported ? reported.status : false;
+    };
+    const devices = things.map(thing => {
+      shadows.client.register(thing.thingName);
+      return {
+        thingGroupNames: thing.thingGroupNames,
+        thingName: thing.thingName,
+        thingId: thing.thingId,
+        thingTypeName: thing.thingTypeName,
+        status: getStatus(thing.shadow),
+        ...thing.attributes
+      };
+    });
+
     commit(SET_DEVICES, devices);
+  },
+  toggleDevice: ({ state, commit }, { name, status }) => {
+    const stateObject = {
+      state: {
+        desired: {
+          status
+        }
+      }
+    };
+    shadows.client.update(name, stateObject);
   }
 };
 

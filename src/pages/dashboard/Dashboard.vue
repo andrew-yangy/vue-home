@@ -6,7 +6,7 @@
         :sm="24"
         v-for="(room,index) in rooms" 
         :key="index">
-        <router-link :to="{ name: 'home', params: { roomId: room.id }}">
+        <router-link :to="{ name: 'home', params: { roomName: room.name }}">
           <el-card :body-style="{ padding: '0px' }" class="room-card">
             <div class="image-container">
               <img :src="room.img" class="room-image">

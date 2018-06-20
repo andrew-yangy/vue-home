@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <el-menu :default-active="selectedRoom" :collapse="true" class="room-list">
+  <div class="home-layout">
+    <el-menu :default-active="selectedRoomName" class="room-list">
       <el-menu-item 
         class="room-item"
         v-for="(room,index) in rooms" 
         :key="index"
-        :index="room.id"
+        :index="room.name"
         @click="clickRoom">
         <svgicon 
           v-if="room.icon" 
@@ -16,57 +16,90 @@
         <div>{{ room.name }}</div>
       </el-menu-item>
     </el-menu>
-    <!-- <el-row :gutter="30">
+    <el-row :gutter="30" class="device-list">
       <el-col 
         :md="6" 
         :sm="12" 
-        v-for="(device,index) in frequentDevices"
+        v-for="(thingName,index) in roomDevices"
         :key="index">
-        <device-switch :device="device" />
+        <device-switch :device="deviceInfo(thingName)" />
       </el-col>
-    </el-row> -->
+    </el-row>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import { Rooms } from "@/store/vuex-decorators";
-
+import { Rooms, Devices } from "@/store/vuex-decorators";
+import DeviceSwitch from "@/components/DeviceSwitch/index.vue";
 @Component({
-  components: {}
+  components: {
+    DeviceSwitch
+  }
 })
 export default class Home extends Vue {
   @Rooms.State("rooms") rooms;
 
   @Rooms.Action fetchRooms;
 
-  created() {
-    if (this.rooms.length === 0) this.fetchRooms();
+  @Devices.State("devices") devices;
+
+  @Devices.Action fetchDevices;
+
+  @Watch("$route.params")
+  onRoomChange() {
+    this.fetchDevices(this.selectedRoomName);
   }
 
-  get selectedRoom() {
-    return typeof this.$route.params.roomId === "undefined"
-      ? this.rooms[0].id
-      : this.$route.params.roomId;
+  created() {
+    if (this.rooms.length === 0) this.fetchRooms();
+    this.fetchDevices(this.selectedRoomName);
+  }
+
+  get selectedRoomName() {
+    return typeof this.$route.params.roomName === "undefined"
+      ? this.rooms[0] && this.rooms[0].name
+      : this.$route.params.roomName;
+  }
+
+  get roomDevices() {
+    const selectedRoom = this.rooms.find(
+      room => room.name === this.selectedRoomName
+    );
+    const devices = selectedRoom ? selectedRoom.things : [];
+    return devices;
+  }
+
+  get deviceInfo() {
+    return name => {
+      return this.devices.find(device => device.thingName === name);
+    };
   }
 
   clickRoom({ index }) {
-    this.$router.push({ params: { roomId: index } });
+    this.$router.push({ params: { roomName: index } });
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.el-menu--collapse {
-  width: 100px;
+.home-layout {
+  display: flex;
 }
 .room-list {
+  width: 100px;
   text-align: center;
+  position: fixed;
+  z-index: 10;
   .room-item {
     height: auto;
     line-height: inherit;
     padding: 1rem 0 !important;
   }
+}
+.device-list {
+  padding-left: 7.5rem;
+  width: 100%;
 }
 </style>
 

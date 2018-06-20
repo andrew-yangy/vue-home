@@ -1,17 +1,16 @@
 <template>
-  <el-card :body-style="{ padding: '0' }" class="card">
-    <div class="device-content">
-      <div class="icon" :class="device.color">
+  <el-card v-if="device" :body-style="{ padding: '0' }" class="card">
+    <div class="device-content" :class="{'off': !device.status}">
+      <div class="icon" :class="device.color" @click="switchDevice(device)">
         <svgicon 
           class=""
           :icon="device.icon" 
           width="50" 
-          height="50" 
-          color="#fff"/>
+          height="50"/>
       </div>
       <div class="details">
-        {{ device.name }}
-        {{ device.states }}
+        <div class="title">{{ device.thingName }}</div>
+        <div class="status">{{ device.status ? 'on': 'off' }}</div>
       </div>
     </div>
   </el-card>
@@ -19,10 +18,17 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
+import { Devices } from "@/store/vuex-decorators";
 
 @Component
 export default class DeviceSwitch extends Vue {
   @Prop() device;
+
+  @Devices.Action toggleDevice;
+
+  switchDevice(device) {
+    this.toggleDevice({ name: device.thingName, status: !device.status });
+  }
 }
 </script>
 
@@ -45,6 +51,7 @@ export default class DeviceSwitch extends Vue {
     font-size: 3.75rem;
     border-radius: 0.375rem;
     transition: width 0.4s ease;
+    color: #fff;
     &.primary {
       @include btn-hero-primary-gradient();
       @include btn-hero-primary-bevel-glow-shadow();
@@ -61,11 +68,8 @@ export default class DeviceSwitch extends Vue {
       @include btn-hero-warning-gradient();
       @include btn-hero-warning-bevel-glow-shadow();
     }
-  }
-  &:hover {
-    background: lighten($card-bg, 5%);
-
-    .icon {
+    &:hover {
+      cursor: pointer;
       &.primary {
         background-image: btn-hero-primary-light-gradient();
       }
@@ -95,12 +99,29 @@ export default class DeviceSwitch extends Vue {
         background-image: linear-gradient(to right, transparent, transparent);
       }
     }
-    .title {
-      color: $card-fg;
+    .details {
+      .title {
+        color: $card-fg;
+      }
     }
   }
   .details {
-    align-self: center;
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .title {
+      font-family: $font-secondary;
+      font-size: 1.25rem;
+      font-weight: $font-weight-bold;
+      color: $card-fg-heading;
+    }
+    .status {
+      font-size: 1rem;
+      font-weight: $font-weight-light;
+      text-transform: uppercase;
+      color: $card-fg;
+    }
   }
 }
 </style>
