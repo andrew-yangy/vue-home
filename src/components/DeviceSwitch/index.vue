@@ -9,7 +9,7 @@
           height="50"/>
       </div>
       <div class="details">
-        <div class="title">{{ device.thingName }}</div>
+        <div class="title">{{ getDeviceName(device) }}</div>
         <div class="status">{{ device.status ? 'on': 'off' }}</div>
       </div>
     </div>
@@ -25,6 +25,10 @@ export default class DeviceSwitch extends Vue {
   @Prop() device;
 
   @Devices.Action toggleDevice;
+
+  getDeviceName(device) {
+    return (device.name && device.name.replace("_", " ")) || device.thingName;
+  }
 
   switchDevice(device) {
     this.toggleDevice({ name: device.thingName, status: !device.status });

@@ -36,7 +36,7 @@ const actions = {
         thingName: thing.thingName,
         thingId: thing.thingId,
         thingTypeName: thing.thingTypeName,
-        status: getStatus(thing.shadow),
+        status: thing.shadow && getStatus(thing.shadow),
         ...thing.attributes
       };
     });
