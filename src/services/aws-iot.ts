@@ -1,5 +1,4 @@
 import AWS from "aws-sdk";
-import AwsIot from "aws-iot-device-sdk";
 import IotClient from "@/services/iot-client";
 export const shadows = new IotClient();
 shadows.updateWebSocketCredentials();

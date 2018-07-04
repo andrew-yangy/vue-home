@@ -16,10 +16,11 @@
         <div>{{ room.name }}</div>
       </el-menu-item>
     </el-menu>
-    <el-row :gutter="30" class="device-list">
+    <el-row class="device-list">
       <el-col 
-        :md="6" 
+        :lg="6" 
         :sm="12" 
+        class="device-item"
         v-for="(thingName,index) in roomDevices"
         :key="index">
         <device-switch :device="deviceInfo(thingName)" />
@@ -101,8 +102,11 @@ export default class Home extends Vue {
   }
 }
 .device-list {
-  padding-left: 7.5rem;
+  padding-left: 6.5rem;
   width: 100%;
+  .device-item {
+    padding: 0 10px;
+  }
 }
 </style>
 
