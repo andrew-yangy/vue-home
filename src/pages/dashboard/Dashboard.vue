@@ -26,15 +26,6 @@
         
       </el-col>
     </el-row>
-    <el-row :gutter="30">
-      <el-col 
-        :md="6" 
-        :sm="12" 
-        v-for="(device,index) in frequentDevices"
-        :key="index">
-        <device-switch :device="device" />
-      </el-col>
-    </el-row>
   </div>
 </template>
 
@@ -61,15 +52,10 @@ export default class Dashboard extends Vue {
 
   @Rooms.Action fetchRooms;
 
-  @Devices.Getter("getFrequentDevices") frequentDevices;
-
   @Devices.Action fetchDevices;
 
   created() {
     if (this.rooms.length === 0) this.fetchRooms();
-    if (this.frequentDevices && this.frequentDevices.length === 0) {
-      this.fetchDevices();
-    }
   }
 }
 </script>

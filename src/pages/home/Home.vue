@@ -52,8 +52,11 @@ export default class Home extends Vue {
   }
 
   created() {
-    if (this.rooms.length === 0) this.fetchRooms();
-    this.fetchDevices(this.selectedRoomName);
+    if (this.rooms.length === 0) {
+      this.fetchRooms().then(() => {
+        this.fetchDevices(this.selectedRoomName);
+      });
+    }
   }
 
   get selectedRoomName() {

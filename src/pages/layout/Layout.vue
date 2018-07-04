@@ -55,6 +55,13 @@ export default class Layout extends Vue {
     window.addEventListener("resize", this.resizeHandler);
   }
 
+  mounted() {
+    if (this.isMobile()) {
+      this.toggleDevice("mobile");
+      this.closeSideBar({ withoutAnimation: true });
+    }
+  }
+
   isMobile() {
     const rect = document.body.getBoundingClientRect();
     return rect.width - this.RATIO < this.WIDTH;
