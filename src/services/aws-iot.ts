@@ -25,7 +25,9 @@ shadows.client.on("message", function(topic, payload) {
 });
 shadows.client.on("foreignStateChange", (name, statusType, stateObject) => {
   console.log(name, statusType, stateObject);
-  stateObject.state && statusHandler(name, stateObject.state.reported.status);
+  stateObject.state &&
+    stateObject.state.reported &&
+    statusHandler(name, stateObject.state.reported.status);
 });
 function statusHandler(name, status) {
   store.commit("devices/setStatus", { name, status }, { root: true });

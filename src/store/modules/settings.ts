@@ -1,6 +1,6 @@
 const state = {
   sidebar: {
-    opened: true,
+    opened: false,
     withoutAnimation: false
   },
   device: "desktop",
@@ -25,7 +25,6 @@ const mutations = {
 };
 const actions = {
   toggleSideBar({ commit }) {
-    console.log(123);
     commit("TOGGLE_SIDEBAR");
   },
   closeSideBar({ commit }, { withoutAnimation }) {
